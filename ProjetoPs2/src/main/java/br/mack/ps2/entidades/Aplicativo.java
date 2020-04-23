@@ -61,4 +61,7 @@ public class Aplicativo {
                 ", numero_de_downloads=" + this.numero_de_downloads +
                 '}';
     }
+
+    public void add(Aplicativo aplicativo) {
+    }
 }
