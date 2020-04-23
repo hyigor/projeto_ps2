@@ -13,7 +13,7 @@ public class Aplicativo {
         this.desenvolvedor = null;
         this.numero_de_downloads = 0;
     }
-    public Aplicativo(String nome, String desenvolvedor, long numero_de_downloads){
+    public Aplicativo(long id , String nome, String desenvolvedor, long numero_de_downloads){
         this.id = id;
         this.nome = nome;
         this.desenvolvedor = desenvolvedor;

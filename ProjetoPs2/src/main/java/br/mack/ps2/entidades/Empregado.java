@@ -12,7 +12,7 @@ public class Empregado {
         this.cargo = null;
         this.salario = 2000;
     }
-    public Empregado(String nome, String cargo, long salario){
+    public Empregado(long id, String nome, String cargo, long salario){
         this.id = id;
         this.nome = nome;
         this.cargo = cargo;
