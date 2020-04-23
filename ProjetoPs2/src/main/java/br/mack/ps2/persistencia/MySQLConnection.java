@@ -16,6 +16,7 @@ public class MySQLConnection {
             return DriverManager.getConnection(url, usuario, psw);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
+            return null;
         }
 
     }

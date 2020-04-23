@@ -55,7 +55,7 @@ public class AplicativoDAOMySQL implements AplicativoDAO{
                 aplicativo.setNome(registro.getString("nome"));
                 aplicativo.setDesenvolvedor(registro.getString("desenvolvedor"));
                 aplicativo.setNumero_de_downloads(registro.getLong("numero_de_downloads"));
-                aplicativo.add(aplicativo);
+                aplicativos.add(aplicativo);
             }
                 return aplicativos;
 

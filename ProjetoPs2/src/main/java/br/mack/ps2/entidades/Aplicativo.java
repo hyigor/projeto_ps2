@@ -62,6 +62,4 @@ public class Aplicativo {
                 '}';
     }
 
-    public void add(Aplicativo aplicativo) {
-    }
 }
