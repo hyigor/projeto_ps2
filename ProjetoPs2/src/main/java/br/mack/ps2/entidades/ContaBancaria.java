@@ -60,6 +60,9 @@ public class ContaBancaria {
                 ", Num_da_agencia:R$" + this.num_da_agencia +
                 '}';
     }
+
+    public void add(ContaBancaria contas) {
+    }
 }
 
 
