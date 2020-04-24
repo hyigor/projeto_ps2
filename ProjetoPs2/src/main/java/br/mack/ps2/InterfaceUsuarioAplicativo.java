@@ -9,23 +9,20 @@ import java.util.Scanner;
 public class InterfaceUsuarioAplicativo {
 
     AplicativoDAO aplicativoDAO;
-    ContaBancariaDAO contaBancariaDAO;
-    EmpregadoDAO empregadoDAO;
     Scanner in;
 
-    public InterfaceUsuarioAplicativo(AplicativoDAO aplicativoDAO, ContaBancariaDAO contaBancariaDAO, EmpregadoDAO empregadoDAO){
+    public InterfaceUsuarioAplicativo(AplicativoDAO aplicativoDAO){
         this.aplicativoDAO = aplicativoDAO;
-        this.contaBancariaDAO = contaBancariaDAO;
-        this.empregadoDAO = empregadoDAO;
+        this.in = new Scanner(System.in);
     }
 
     public void iniciar () {
         imprimirMenu();
     }
 
-    private void imprimirMenu(){
+    private void imprimirMenu() {
         int opc = 0;
-        while(true) {
+        while (true) {
             System.out.println("\n============");
             System.out.println("====Menu====");
             System.out.println("============");
@@ -38,19 +35,19 @@ public class InterfaceUsuarioAplicativo {
 
             in.nextLine();
 
-            switch (opc){
+            switch (opc) {
                 case 1:
-                        this.createAplicativo();
+                    this.createAplicativo();
                     break;
                 case 2:
-                        this.readAplicativo();
+                    this.readAplicativo();
                     break;
                 case 3:
                     System.out.println("Não implementado");
                     break;
                 case 4:
-                        this.deleteAplicativo();
-                        break;
+                    this.deleteAplicativo();
+                    break;
                 case 5:
                     System.out.println("Tchau!");
                     return;
@@ -58,15 +55,102 @@ public class InterfaceUsuarioAplicativo {
                     System.out.println("Opção Inválida");
                     break;
             }
-
-
-            public void createAplicativo(){
-                Aplicativo aplicativo = new Aplicativo();
-            }
-
-
-
         }
     }
 
+            private void createAplicativo (){
+                Aplicativo aplicativo = new Aplicativo();
+
+                System.out.println("\n***********************");
+                System.out.println("*** Novo Aplicativo ***");
+                System.out.println("***********************");
+                System.out.println("\nInforme o nome do aplicativo: ");
+                aplicativo.setNome(in.nextLine());
+
+                System.out.println("Informe o nick do desenvolvedor: ");
+                aplicativo.setDesenvolvedor(in.nextLine());
+
+                System.out.println("Informe o numero de downloads: ");
+                aplicativo.setNumero_de_downloads(in.nextLong());
+
+                if(aplicativoDAO.create(aplicativo)){
+                    System.out.println("Aplicativo adicionado ao banco de Dados");
+                } else {
+                    System.out.println("Ops: problema ao adicionar aplicativo");
+                }
+            }
+
+            private void readAplicativo(){
+                List <Aplicativo> aplicativos = aplicativoDAO.read();
+
+                System.out.println("\n*******************************************");
+                System.out.println("**** Lista dos Aplicativos Cadastrados ****");
+                System.out.println("********************************************");
+                for(Aplicativo aplicativo : aplicativos) {
+                    System.out.println(aplicativo);
+                }
+        }
+
+            private void updateAplicativo(){
+                Aplicativo aplicativo = new Aplicativo();
+
+                System.out.println("*** Atualizar um Aplicativo ***");
+                System.out.println("Insira o ID do aplicativo que deseja modificar: ");
+                aplicativo.setId(in.nextLong());
+
+                System.out.println("Altere o nome do aplicativo: ");
+                aplicativo.setNome(in.nextLine());
+
+                System.out.println("Altere do nome do desenvolvedor: ");
+                aplicativo.setDesenvolvedor(in.nextLine());
+
+                System.out.println("Altere o numero de downloads: ");
+                aplicativo.setNumero_de_downloads(in.nextLong());
+
+                if(aplicativoDAO.update(aplicativo)){
+                    System.out.println("Aplicativo atualizado no Banco de Dados");
+                } else{
+                    System.out.println("Ops: problema ao adicionar aplicativo");
+                }
+    }
+            private void deleteAplicativo(){
+                List <Aplicativo> aplicativos = aplicativoDAO.read();
+
+                while(true){
+                    System.out.println("\n******************************************");
+                    System.out.println("*** Lista dos computadores cadastrados ***");
+                    System.out.println("******************************************");
+
+                    int a = 0;
+                    for(Aplicativo computador : aplicativos){
+                        System.out.println(a + " - " + aplicativos);
+                        a++;
+
+                    }
+                    System.out.println(a + " - Cancelar a operação");
+
+                    System.out.println("Qual Aplicativo deseja remover?\n");
+                    int resposta = in.nextInt();
+                    in.nextLine();
+
+                    if(resposta == a){
+                        break;
+                    } else if(resposta >= aplicativos.size() || resposta < 0){
+                        System.out.println("Está opção não é valida");
+                    } //else if(aplicativoDAO.delete(aplicativos.get(resposta))){
+                        //System.out.println("Ops: Falha ao tentar remover");
+                //    }
+                else{
+                        System.out.println("Aplicativo: " + aplicativos.get(resposta).getId() + " removido com sucesso");
+                    }
+
+                    break;
+                } for (Aplicativo aplicativo : aplicativos){
+                    System.out.println(aplicativo);
+                }
+
+            }
+
 }
+
+

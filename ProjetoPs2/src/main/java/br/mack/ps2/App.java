@@ -1,9 +1,14 @@
 package br.mack.ps2;
 
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+import br.mack.ps2.persistencia.AplicativoDAO;
+import br.mack.ps2.persistencia.AplicativoDAOMySQL;
+
+public class App {
+    public static void main(String[] args) {
+        AplicativoDAOMySQL dao = new AplicativoDAOMySQL();
+        InterfaceUsuarioAplicativo aplicativo = new InterfaceUsuarioAplicativo(dao);
+        aplicativo.iniciar();
+
     }
+
 }

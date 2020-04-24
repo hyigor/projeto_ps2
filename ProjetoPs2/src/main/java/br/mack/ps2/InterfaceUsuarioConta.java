@@ -126,13 +126,13 @@ public class InterfaceUsuarioConta {
                List<ContaBancaria> contas = contaBancariaDAO.read();
 
                while(true){
-                   System.out.println("Lista das Contas registradas"):
-               int i=0;
+                   System.out.println("Lista das Contas registradas");
+               int a=0;
                    for(ContaBancaria contabancaria:contas){
-                       System.out.println(i + "-" + contabancaria);
-                       i++;
+                       System.out.println(a + "-" + contabancaria);
+                       a++;
                    }
-                   System.out.println(i+ " Cancelar operação");
+                   System.out.println(a+ " Cancelar operação");
 
                    System.out.println("Qual conta deseja remover?");
                    int resposta = in.nextInt();
@@ -154,7 +154,7 @@ public class InterfaceUsuarioConta {
                 }
                }
             }
-        }
+
 
 
 
