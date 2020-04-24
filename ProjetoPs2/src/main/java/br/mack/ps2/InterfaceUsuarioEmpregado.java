@@ -66,9 +66,6 @@ public class InterfaceUsuarioEmpregado {
         System.out.println("\n***************");
         System.out.println("*** Novo Empregado ***");
         System.out.println("***********************");
-        System.out.println("\nInforme o ID do Empregado: ");
-        empregado.setId(in.nextLong());
-        in.nextLine();
 
         System.out.println("Informe o nome do Empregado: ");
         empregado.setNome(in.nextLine());
@@ -95,7 +92,6 @@ public class InterfaceUsuarioEmpregado {
         System.out.println("\n*************************************************");
         System.out.println("Lista de Empregado cadastrados no Banco de Dados");
         System.out.println("\n***************************************************");
-        System.out.println(empregados);
 
         for (Empregado empregado: empregados){
             System.out.println( "Id do empregado: " + empregado.getId());
@@ -141,7 +137,6 @@ public class InterfaceUsuarioEmpregado {
             System.out.println("\n********************************");
             System.out.println("Lista dos Empregado registradas");
             System.out.println("\n**********************************");
-            System.out.println(empregados);
             int a=0;
             for(Empregado empregado:empregados){
                 System.out.println(a + ". Id do empregado: " + empregado.getId());

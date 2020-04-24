@@ -2,6 +2,7 @@ package br.mack.ps2;
 
 import br.mack.ps2.persistencia.AplicativoDAOMySQL;
 import br.mack.ps2.persistencia.ContaBancariaDAOMySQL;
+import br.mack.ps2.persistencia.EmpregadoDAOMySQL;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -30,9 +31,9 @@ public class Menu {
                 InterfaceUsuarioConta conta = new InterfaceUsuarioConta(contaDAO);
                 conta.iniciar();
             } else if (escolha2 == 3) {
-                //EmpregadoDAOMySQL empregadoDAO = new EmpregadoDAOMySQL();
-                //InterfaceUsuarioEmpregado empregado = new InterfaceUsuarioEmpregado(empregadoDAO);
-                //empregado.iniciar();
+                EmpregadoDAOMySQL empregadoDAO = new EmpregadoDAOMySQL();
+                InterfaceUsuarioEmpregado empregado = new InterfaceUsuarioEmpregado(empregadoDAO);
+                empregado.iniciar();
             } else {
                 throw new InputMismatchException();
             }

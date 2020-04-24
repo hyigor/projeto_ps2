@@ -14,7 +14,7 @@ import java.util.List;
 public class EmpregadoDAOMySQL implements EmpregadoDAO {
     private String creatSQL = "INSERT INTO empregado (nome, cargo, salario ) VALUES(?,?,?)";
     private String readSQL = "SELECT * FROM empregado";
-    private String updateSQL = " UPDATE empregado SET nome=?, cargo=?, salario=? where id = ?";
+    private String updateSQL = " UPDATE empregado SET nome=?, cargo=?, salario=? WHERE id = ?";
     private String deleteSQL = "DELETE FROM empregado where id = ?";
 
     private MySQLConnection mysql = new MySQLConnection();
@@ -27,6 +27,7 @@ public class EmpregadoDAOMySQL implements EmpregadoDAO {
             stm.setString(1, empregado.getNome());
             stm.setString(2,empregado.getCargo());
             stm.setLong(3,empregado.getSalario());
+
             int registro = stm.executeUpdate();
             return (registro>0);
                   }catch (SQLException e) {
@@ -75,14 +76,18 @@ public class EmpregadoDAOMySQL implements EmpregadoDAO {
     @Override
     public boolean update(Empregado empregado) {
         Connection conexao = mysql.getConnection();
+
+        int registros = -1;
+
         try{
             PreparedStatement stm = conexao.prepareStatement(updateSQL);
             stm.setString(1,empregado.getNome());
             stm.setString(2,empregado.getCargo());
             stm.setLong(3,empregado.getSalario());
+            stm.setLong(4, empregado.getId());
 
-            int registros = stm.executeUpdate();
-            return registros >0 ? true : false;
+            registros = stm.executeUpdate();
+
         }catch (final SQLException ex){
             System.out.println("Falha na conexao com a base de dados!");
             ex.printStackTrace();
@@ -95,7 +100,7 @@ public class EmpregadoDAOMySQL implements EmpregadoDAO {
                 ex.printStackTrace();
             }
         }
-        return false;
+        return registros > 0;
 
     }
 
