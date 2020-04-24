@@ -91,10 +91,13 @@ public class InterfaceUsuarioConta {
             List<ContaBancaria> contas= contaBancariaDAO.read();
 
             System.out.println("\n**********************");
-            System.out.println("Lista de contas cadastras no Banco de Dados");
+            System.out.println("Lista de contas cadastradas no Banco de Dados");
             System.out.println("\n****************");
+            System.out.println(contas);
+
             for (ContaBancaria contabancaria: contas){
                 System.out.println(contabancaria);
+
 
             }
         }
@@ -126,13 +129,19 @@ public class InterfaceUsuarioConta {
                List<ContaBancaria> contas = contaBancariaDAO.read();
 
                while(true){
+                   System.out.println("\n**************************");
                    System.out.println("Lista das Contas registradas");
-               int a=0;
+                   System.out.println("*****************************");
+                   System.out.println(contas);
+                   int a=0;
                    for(ContaBancaria contabancaria:contas){
-                       System.out.println(a + "-" + contabancaria);
+                       System.out.println(a + ". Id da conta: " + contabancaria.getId());
+                       System.out.println("  Nome do titular da conta: " +  contabancaria.getNome_do_titular());
+                       System.out.println("  Saldo da conta: " + contabancaria.getSaldo());
+                       System.out.println("  Numero da agencia: " + contabancaria.getNum_da_agencia() + "\n");
                        a++;
                    }
-                   System.out.println(a+ " Cancelar operação");
+                   System.out.println(a+ " - Cancelar operação");
 
                    System.out.println("Qual conta deseja remover?");
                    int resposta = in.nextInt();
@@ -140,17 +149,21 @@ public class InterfaceUsuarioConta {
 
                    if (resposta==a){
                        break;
-                   } else if(resposta >= contas.size() || resposta < 0){
+                   } else if(resposta > contas.size() || resposta < 0){
                        System.out.println("Está opção não é valida");
+
                    } else if(contaBancariaDAO.delete(contas.get(resposta))){
-                       System.out.println("Ops: Falha ao tentar remover");
+                       System.out.println("Conta: " + contas.get(resposta).getNome_do_titular() + " removido com sucesso");
                    } else{
-                       System.out.println("Aplicativo: " + contas.get(resposta).getNome_do_titular() + " removido com sucesso");
+                             System.out.println("Ops: Falha ao tentar remover");
                    }
 
                    break;
                } for (ContaBancaria contabancaria : contas){
-                    System.out.println(contabancaria);
+                    System.out.println("Id da conta: " + contabancaria.getId());
+                    System.out.println("Nome do titular da conta: " +  contabancaria.getNome_do_titular());
+                    System.out.println("Saldo da conta: " + contabancaria.getSaldo());
+                    System.out.println("Numero da agencia: " + contabancaria.getNum_da_agencia() + "\n");
                 }
                }
             }
