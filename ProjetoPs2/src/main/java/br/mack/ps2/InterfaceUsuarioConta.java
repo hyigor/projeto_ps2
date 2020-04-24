@@ -15,15 +15,16 @@ public class InterfaceUsuarioConta {
 
     public InterfaceUsuarioConta(ContaBancariaDAO contaBancariaDAO){
         this.contaBancariaDAO = contaBancariaDAO;
-            }
+        this.in = new Scanner(System.in);
+    }
 
     public void iniciar () {
         imprimirMenu();
     }
 
-    private void imprimirMenu(){
+    private void imprimirMenu() {
         int opc = 0;
-        while(true) {
+        while (true) {
             System.out.println("\n============");
             System.out.println("====Menu====");
             System.out.println("============");
@@ -64,9 +65,6 @@ public class InterfaceUsuarioConta {
                 System.out.println("\n***************");
                 System.out.println("*** Nova Conta Bancária ***");
                 System.out.println("***********************");
-                System.out.println("\nInforme o ID da conta: ");
-                conta.setId(in.nextLong());
-                in.nextLine();
 
                 System.out.println("Informe o nome do títular: ");
                 conta.setNome_do_titular(in.nextLine());
@@ -93,12 +91,12 @@ public class InterfaceUsuarioConta {
             System.out.println("\n**********************");
             System.out.println("Lista de contas cadastradas no Banco de Dados");
             System.out.println("\n****************");
-            System.out.println(contas);
 
             for (ContaBancaria contabancaria: contas){
-                System.out.println(contabancaria);
-
-
+                System.out.println("Id do aplicativo: " + contabancaria.getId());
+                System.out.println("Nome do aplicativo: " +  contabancaria.getNome_do_titular());
+                System.out.println("Nome do desenvolvedor: " + contabancaria.getSaldo());
+                System.out.println("Numero de downloads: " + contabancaria.getNum_da_agencia() + "\n");
             }
         }
         public void updateConta(){
@@ -108,7 +106,7 @@ public class InterfaceUsuarioConta {
 
             System.out.println("Insira o ID da conta bancaria");
             conta.setId(in.nextLong());
-
+            in.nextLine();
             System.out.println("Altere o nome da conta");
             conta.setNome_do_titular(in.nextLine());
 
@@ -132,7 +130,7 @@ public class InterfaceUsuarioConta {
                    System.out.println("\n**************************");
                    System.out.println("Lista das Contas registradas");
                    System.out.println("*****************************");
-                   System.out.println(contas);
+
                    int a=0;
                    for(ContaBancaria contabancaria:contas){
                        System.out.println(a + ". Id da conta: " + contabancaria.getId());
@@ -141,7 +139,7 @@ public class InterfaceUsuarioConta {
                        System.out.println("  Numero da agencia: " + contabancaria.getNum_da_agencia() + "\n");
                        a++;
                    }
-                   System.out.println(a+ " - Cancelar operação");
+                   System.out.println(a+ ". Cancelar operação");
 
                    System.out.println("Qual conta deseja remover?");
                    int resposta = in.nextInt();
@@ -159,12 +157,7 @@ public class InterfaceUsuarioConta {
                    }
 
                    break;
-               } for (ContaBancaria contabancaria : contas){
-                    System.out.println("Id da conta: " + contabancaria.getId());
-                    System.out.println("Nome do titular da conta: " +  contabancaria.getNome_do_titular());
-                    System.out.println("Saldo da conta: " + contabancaria.getSaldo());
-                    System.out.println("Numero da agencia: " + contabancaria.getNum_da_agencia() + "\n");
-                }
+               }
                }
             }
 

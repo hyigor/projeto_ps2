@@ -43,7 +43,7 @@ public class InterfaceUsuarioAplicativo {
                     this.readAplicativo();
                     break;
                 case 3:
-                    System.out.println("Não implementado");
+                    this.updateAplicativo();
                     break;
                 case 4:
                     this.deleteAplicativo();
@@ -87,7 +87,10 @@ public class InterfaceUsuarioAplicativo {
                 System.out.println("**** Lista dos Aplicativos Cadastrados ****");
                 System.out.println("********************************************");
                 for(Aplicativo aplicativo : aplicativos) {
-                    System.out.println(aplicativo);
+                    System.out.println("Id do aplicativo: " + aplicativo.getId());
+                    System.out.println("Nome do aplicativo: " +  aplicativo.getNome());
+                    System.out.println("Nome do desenvolvedor: " + aplicativo.getDesenvolvedor());
+                    System.out.println("Numero de downloads: " + aplicativo.getNumero_de_downloads() + "\n");
                 }
         }
 
@@ -97,6 +100,7 @@ public class InterfaceUsuarioAplicativo {
                 System.out.println("*** Atualizar um Aplicativo ***");
                 System.out.println("Insira o ID do aplicativo que deseja modificar: ");
                 aplicativo.setId(in.nextLong());
+                in.nextLine();
 
                 System.out.println("Altere o nome do aplicativo: ");
                 aplicativo.setNome(in.nextLine());
@@ -116,18 +120,24 @@ public class InterfaceUsuarioAplicativo {
             private void deleteAplicativo(){
                 List <Aplicativo> aplicativos = aplicativoDAO.read();
 
+
                 while(true){
                     System.out.println("\n******************************************");
-                    System.out.println("*** Lista dos computadores cadastrados ***");
+                    System.out.println("*** Lista dos aplicativos cadastrados ***");
                     System.out.println("******************************************");
 
+                    System.out.println(aplicativos);
+
                     int a = 0;
-                    for(Aplicativo computador : aplicativos){
-                        System.out.println(a + " - " + aplicativos);
+                    for(Aplicativo aplicativo : aplicativos){
+                        System.out.println(a + ". Id do aplicativo: " + aplicativo.getId());
+                        System.out.println("  Nome do aplicativo: " +  aplicativo.getNome());
+                        System.out.println("  Nome do desenvolvedor: " + aplicativo.getDesenvolvedor());
+                        System.out.println("  Numero de downloads: " + aplicativo.getNumero_de_downloads() + "\n");
                         a++;
 
                     }
-                    System.out.println(a + " - Cancelar a operação");
+                    System.out.println(a + ". Cancelar a operação");
 
                     System.out.println("Qual Aplicativo deseja remover?\n");
                     int resposta = in.nextInt();
@@ -135,18 +145,16 @@ public class InterfaceUsuarioAplicativo {
 
                     if(resposta == a){
                         break;
-                    } else if(resposta >= aplicativos.size() || resposta < 0){
+                    } else if(resposta > aplicativos.size() || resposta < 0){
                         System.out.println("Está opção não é valida");
-                    } //else if(aplicativoDAO.delete(aplicativos.get(resposta))){
-                        //System.out.println("Ops: Falha ao tentar remover");
-                //    }
-                else{
-                        System.out.println("Aplicativo: " + aplicativos.get(resposta).getId() + " removido com sucesso");
-                    }
 
+                    } else if(aplicativoDAO.delete(aplicativos.get(resposta))){
+                        System.out.println("Aplicativo: "+ aplicativos.get(resposta).getNome() + " removido com sucesso");
+                    }
+                else{
+                        System.out.println("Ops: Falha ao tentar remover");
+                }
                     break;
-                } for (Aplicativo aplicativo : aplicativos){
-                    System.out.println(aplicativo);
                 }
 
             }

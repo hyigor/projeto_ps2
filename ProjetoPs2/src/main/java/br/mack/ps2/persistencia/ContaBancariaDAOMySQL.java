@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContaBancariaDAOMySQL implements ContaBancariaDAO {
-    private String createSQL = "INSERT INTO contabancaria(mome_do_titular,saldo,num_da_agencia) VALUES(?,?,?)";
-    private String readSQL = "SELECT * FROM contabancaria";
-    private String updateSQL = "UPDATE contabancaria SET nome_do_titular=?, saldo=?, num_da_agencia=? WHERE id=?";
-    private String deleteSQL = "DELETE FROM contabancaria WHERE id=?";
+    private String createSQL = "INSERT INTO conta_bancaria(nome_do_titular,saldo,numero_da_agencia) VALUES(?,?,?)";
+    private String readSQL = "SELECT * FROM conta_bancaria";
+    private String updateSQL = "UPDATE conta_bancaria SET nome_do_titular=?, saldo=?, numero_da_agencia=? WHERE id=?";
+    private String deleteSQL = "DELETE FROM conta_bancaria WHERE id=?";
 
     private final MySQLConnection mysql = new MySQLConnection();
 
@@ -50,9 +50,9 @@ public class ContaBancariaDAOMySQL implements ContaBancariaDAO {
             while (registro.next()) {
                 ContaBancaria conta = new ContaBancaria();
                 conta.setId(registro.getLong("id"));
-                conta.setNome_do_titular(registro.getString("id"));
+                conta.setNome_do_titular(registro.getString("nome_do_titular"));
                 conta.setSaldo(registro.getLong("saldo"));
-                conta.setNum_da_agencia(registro.getInt("agencia"));
+                conta.setNum_da_agencia(registro.getInt("numero_da_agencia"));
                 contas.add(conta);
             }
             return contas;
@@ -75,20 +75,20 @@ public class ContaBancariaDAOMySQL implements ContaBancariaDAO {
     @Override
     public boolean updade(ContaBancaria contabancaria) {
         Connection conexao =mysql.getConnection();
+        int registro = -1;
         try{
             PreparedStatement stm= conexao.prepareStatement(updateSQL);
             stm.setString(1,contabancaria.getNome_do_titular());
             stm.setLong(2, contabancaria.getSaldo());
             stm.setInt(3, contabancaria.getNum_da_agencia());
+            stm.setLong(4, contabancaria.getId());
 
-            int registro = stm.executeUpdate();
+            registro = stm.executeUpdate();
 
-            return registro>0 ? true:false;
+
         } catch (final SQLException throwables) {
             System.out.println("Falha de conexão com a base de dados!");
             throwables.printStackTrace();
-        } catch (final Exception ex){
-            ex.printStackTrace();
         }
         finally {
             try {
@@ -98,7 +98,7 @@ public class ContaBancariaDAOMySQL implements ContaBancariaDAO {
             }
 
         }
-        return false;
+        return registro > 0;
     }
 
     @Override

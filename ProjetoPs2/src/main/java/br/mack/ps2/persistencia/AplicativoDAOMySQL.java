@@ -12,7 +12,7 @@ import java.util.List;
 public class AplicativoDAOMySQL implements AplicativoDAO{
     private String createSQL = "INSERT INTO aplicativo (nome,desenvolvedor,numero_de_downloads) VALUES (?,?,?)";
     private String readSQL = "SELECT * FROM aplicativo";
-    private String updateSQL = "UPDATE aplicativo SET nome = ?, desenvolvedor = ?, numero_de_downloads WHERE id = 1";
+    private String updateSQL = "UPDATE aplicativo SET nome = ?, desenvolvedor = ?, numero_de_downloads = ? WHERE id = ?";
     private String deleteSQL = "DELETE FROM aplicativo WHERE id = ?";
 
     private final MySQLConnection mysql = new MySQLConnection();
@@ -75,21 +75,21 @@ public class AplicativoDAOMySQL implements AplicativoDAO{
     @Override
     public boolean update(Aplicativo aplicativo) {
         Connection conexao = mysql.getConnection();
+        int registros = -1;
         try {
             PreparedStatement stm = conexao.prepareStatement(updateSQL);
 
             stm.setString(1,aplicativo.getNome());
             stm.setString(2,aplicativo.getDesenvolvedor());
             stm.setLong(3, aplicativo.getNumero_de_downloads());
+            stm.setLong(4, aplicativo.getId());
 
-            int registros = stm.executeUpdate();
+            registros = stm.executeUpdate();
 
-            return registros > 0;
+
 
         } catch (final SQLException e){
             System.out.println("Falha de conexão com a base de dados!");
-            e.printStackTrace();
-        } catch (final Exception e){
             e.printStackTrace();
         } finally {
             try{
@@ -98,7 +98,7 @@ public class AplicativoDAOMySQL implements AplicativoDAO{
                 e.printStackTrace();
             }
         }
-        return false;
+        return registros > 0;
     }
 
     @Override
